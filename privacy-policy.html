@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Focusphere</title>
+    <style>
+        /* Matching styles from main page for consistency */
+        :root {
+            --focus-red: #FE6666;
+            --break-green: #A7E4AD;
+            --dark-text: #333333;
+            --light-bg: #FFFFFF;
+            --light-gray: #F5F5F7;
+            --medium-gray: #E5E5E5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            padding: 4rem 1rem;
+            text-align: center;
+            background-color: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background: radial-gradient(circle at 30% 40%, var(--break-green) 0%, transparent 40%), 
+                        radial-gradient(circle at 70% 60%, var(--focus-red) 0%, transparent 40%);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section {
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            background-color: var(--light-gray);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--focus-red);
+            font-weight: 600;
+        }
+        
+        p, ul, ol {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            padding-left: 2rem;
+        }
+        
+        a {
+            color: var(--break-green);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin: 1rem 0;
+            color: var(--dark-text);
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-bg"></div>
+        <div class="logo-container">
+            <svg class="app-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" style="width: 80px; height: 80px; margin-right: 1rem;">
+              <!-- App icon background -->
+              <rect width="1024" height="1024" rx="220" fill="#FFFFFF"/>
+              
+              <!-- Green outer ring -->
+              <circle cx="512" cy="512" r="380" fill="none" stroke="#A7E4AD" stroke-width="120" stroke-opacity="0.9"/>
+              
+              <!-- Red C-shaped ring (not fully closed) -->
+              <path d="M512,312 A200,200 0 1,1 512,712 A200,200 0 1,1 512,312" 
+                    fill="none" stroke="#FE6666" stroke-width="100" stroke-linecap="round"
+                    stroke-dasharray="1256" stroke-dashoffset="314"/>
+              
+              <!-- Green inner circle -->
+              <circle cx="512" cy="512" r="150" fill="#A7E4AD" fill-opacity="0.9"/>
+              
+              <!-- Red wave through the center -->
+              <path d="M412,512 Q462,462 512,512 Q562,562 612,512" 
+                    fill="none" stroke="#FE6666" stroke-width="50" stroke-linecap="round"/>
+            </svg>
+            <h1 style="font-size: 2.5rem; font-weight: 700; color: var(--dark-text);">Privacy Policy</h1>
+        </div>
+    </header>
+    
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="section">
+            <p><strong>Last Updated:</strong> March 31, 2025</p>
+            
+            <h2>Introduction</h2>
+            <p>At Focusphere, we respect your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you use our Focusphere application ("App") available on iOS and macOS platforms.</p>
+            
+            <h2>Information We Collect</h2>
+            <p>Focusphere is designed with privacy in mind. We collect minimal data necessary for the functioning of the app:</p>
+            <ul>
+                <li><strong>Focus Session Data:</strong> We collect data about your focus sessions, including duration, completion status, and timestamps. This data is stored locally on your device.</li>
+                <li><strong>Device Information:</strong> For our device synchronization feature, we collect basic device identifiers to facilitate connections between your devices. This information is only used for establishing direct peer-to-peer connections.</li>
+                <li><strong>App Usage Data:</strong> If you enable the Guard Mode feature, the app will need permission to monitor which apps you're attempting to use during focus sessions. This data is processed entirely on your device and is never transmitted to our servers.</li>
+            </ul>
+            
+            <h2>How We Use Your Information</h2>
+            <p>We use the collected information solely for the following purposes:</p>
+            <ul>
+                <li>To provide and maintain our App's functionality</li>
+                <li>To enable cross-device synchronization of your focus sessions</li>
+                <li>To generate statistics and insights about your focus habits (displayed only to you)</li>
+                <li>To improve our App based on aggregate, anonymized usage patterns</li>
+            </ul>
+            
+            <h2>Data Storage and Security</h2>
+            <p>Your privacy is important to us:</p>
+            <ul>
+                <li>All focus session data is stored locally on your devices.</li>
+                <li>When synchronizing between devices, data is transmitted directly between your devices using Apple's MultipeerConnectivity framework without passing through our servers.</li>
+                <li>We implement appropriate security measures to protect your personal data.</li>
+            </ul>
+            
+            <h2>Data Sharing</h2>
+            <p>We do not sell, trade, or otherwise transfer your information to third parties. We may share anonymized, aggregate data for analytical purposes, but this will never include personally identifiable information.</p>
+            
+            <h2>Your Rights</h2>
+            <p>You have control over your data:</p>
+            <ul>
+                <li>You can view all your session data within the App.</li>
+                <li>You can delete your data through the App settings.</li>
+                <li>You can opt out of device synchronization at any time.</li>
+            </ul>
+            
+            <h2>Children's Privacy</h2>
+            <p>Our App is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us.</p>
+            
+            <h2>Changes to This Privacy Policy</h2>
+            <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+            
+            <h2>Contact Us</h2>
+            <p>If you have any questions about this Privacy Policy or our data practices, please contact us at:</p>
+            <p><a href="mailto:support@focusphere.app">support@focusphere.app</a></p>
+        </div>
+        
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Focusphere. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

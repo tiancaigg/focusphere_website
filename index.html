@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focusphere - Mindful Productivity Ecosystem</title>
+    <style>
+        /* Color palette based on app icon */
+        :root {
+            --focus-red: #FE6666;
+            --break-green: #A7E4AD;
+            --dark-text: #333333;
+            --light-bg: #FFFFFF;
+            --light-gray: #F5F5F7;
+            --medium-gray: #E5E5E5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            padding: 4rem 1rem;
+            text-align: center;
+            background-color: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background: radial-gradient(circle at 30% 40%, var(--break-green) 0%, transparent 40%), 
+                        radial-gradient(circle at 70% 60%, var(--focus-red) 0%, transparent 40%);
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            margin-right: 1rem;
+        }
+        
+        .logo-text {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #555;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .cta-buttons {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            background-color: var(--focus-red);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(254, 102, 102, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(254, 102, 102, 0.4);
+        }
+        
+        .cta-button.secondary {
+            background-color: var(--break-green);
+            box-shadow: 0 4px 12px rgba(167, 228, 173, 0.3);
+        }
+        
+        .cta-button.secondary:hover {
+            box-shadow: 0 8px 16px rgba(167, 228, 173, 0.4);
+        }
+        
+        .section {
+            margin: 6rem 0;
+            padding: 2rem;
+            border-radius: 2rem;
+            background-color: var(--light-bg);
+        }
+        
+        .section:nth-child(even) {
+            background-color: var(--light-gray);
+            margin-left: -2rem;
+            margin-right: -2rem;
+            padding-left: 4rem;
+            padding-right: 4rem;
+            border-radius: 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+            text-align: center;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--focus-red), var(--break-green));
+            border-radius: 2px;
+        }
+        
+        .section-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            color: #555;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .feature {
+            padding: 2rem;
+            border-radius: 1.5rem;
+            background-color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .feature:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        
+        .feature-icon-bg {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .feature-icon-1 .feature-icon-bg {
+            background-color: rgba(167, 228, 173, 0.2);
+            border: 2px solid var(--break-green);
+        }
+        
+        .feature-icon-2 .feature-icon-bg {
+            background-color: rgba(254, 102, 102, 0.2);
+            border: 2px solid var(--focus-red);
+        }
+        
+        .feature-icon-3 .feature-icon-bg {
+            background: linear-gradient(135deg, rgba(167, 228, 173, 0.2), rgba(254, 102, 102, 0.2));
+            border: 2px dashed var(--break-green);
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+        
+        .mockup {
+            display: flex;
+            justify-content: center;
+            margin: 4rem 0;
+            position: relative;
+        }
+        
+        .mockup-wrapper {
+            position: relative;
+            max-width: 100%;
+        }
+        
+        .mockup img {
+            max-width: 100%;
+            border-radius: 1.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--medium-gray);
+        }
+        
+        .mockup::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(167, 228, 173, 0.15);
+            top: -50px;
+            left: -50px;
+            z-index: -1;
+        }
+        
+        .mockup::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: rgba(254, 102, 102, 0.15);
+            bottom: -30px;
+            right: -30px;
+            z-index: -1;
+        }
+        
+        .app-icon-large {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 6rem;
+            background-color: var(--light-gray);
+            color: #666;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .footer-link {
+            color: var(--dark-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--focus-red);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.25rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section:nth-child(even) {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+            
+            .feature {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Animation for circular timer visual - matching the app icon style */
+        .timer-visual {
+            width: 220px;
+            height: 220px;
+            margin: 2rem auto;
+            position: relative;
+        }
+        
+        .timer-visual-outer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 30px solid var(--break-green);
+            opacity: 0.9;
+        }
+        
+        .timer-visual-middle {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 25px solid var(--focus-red);
+            opacity: 0.9;
+            clip-path: polygon(0 0, 100% 0, 100% 75%, 0 75%);
+            animation: rotate 10s linear infinite;
+        }
+        
+        .timer-visual-inner {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background-color: var(--break-green);
+            opacity: 0.9;
+        }
+        
+        .timer-visual-wave {
+            position: absolute;
+            width: 100px;
+            height: 50px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .timer-visual-wave::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--focus-red);
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'%3E%3Cpath d='M0,25 Q25,0 50,25 Q75,50 100,25' stroke='%23000' stroke-width='10' fill='none'/%3E%3C/svg%3E") no-repeat center / contain;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'%3E%3Cpath d='M0,25 Q25,0 50,25 Q75,50 100,25' stroke='%23000' stroke-width='10' fill='none'/%3E%3C/svg%3E") no-repeat center / contain;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        
+        /* Breathing animation */
+        .breathing-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--break-green);
+            margin: 2rem auto;
+            animation: breathe 8s ease-in-out infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(0.8);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.9;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-bg"></div>
+        <div class="logo-container">
+            <svg class="app-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+              <!-- App icon background -->
+              <rect width="1024" height="1024" rx="220" fill="#FFFFFF"/>
+              
+              <!-- Green outer ring -->
+              <circle cx="512" cy="512" r="380" fill="none" stroke="#A7E4AD" stroke-width="120" stroke-opacity="0.9"/>
+              
+              <!-- Red C-shaped ring (not fully closed) -->
+              <path d="M512,312 A200,200 0 1,1 512,712 A200,200 0 1,1 512,312" 
+                    fill="none" stroke="#FE6666" stroke-width="100" stroke-linecap="round"
+                    stroke-dasharray="1256" stroke-dashoffset="314"/>
+              
+              <!-- Green inner circle -->
+              <circle cx="512" cy="512" r="150" fill="#A7E4AD" fill-opacity="0.9"/>
+              
+              <!-- Red wave through the center -->
+              <path d="M412,512 Q462,462 512,512 Q562,562 612,512" 
+                    fill="none" stroke="#FE6666" stroke-width="50" stroke-linecap="round"/>
+            </svg>
+            <div class="logo-text">Focusphere</div>
+        </div>
+        <p class="tagline">A mindful productivity ecosystem that helps you maintain deep focus across all your Apple devices</p>
+        <div class="cta-buttons">
+            <a href="#" class="cta-button">
+                <span>📱</span> Download for iOS
+            </a>
+            <a href="#" class="cta-button secondary">
+                <span>⌘</span> Download for Mac
+            </a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">Stay in the Flow</h2>
+            <p class="section-description">Focusphere combines a beautiful Pomodoro timer with powerful productivity tools to create your optimal workflow environment.</p>
+            
+            <div class="mockup">
+                <div class="mockup-wrapper">
+                    <img src="/api/placeholder/800/450" alt="Focusphere App Interface" />
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">Key Features</h2>
+            <p class="section-description">Designed to enhance your focus and productivity with mindful app control, customizable timers, and seamless synchronization.</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon feature-icon-1">
+                        <div class="feature-icon-bg"></div>
+                        <div style="z-index: 1;">⏱️</div>
+                    </div>
+                    <h3 class="feature-title">Focus Timer (Flow Mode)</h3>
+                    <p>Clean, minimalist Pomodoro timer with customizable work/break intervals, beautiful animations, and optional ambient sounds to enhance your focus.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon feature-icon-2">
+                        <div class="feature-icon-bg"></div>
+                        <div style="z-index: 1;">🛡️</div>
+                    </div>
+                    <h3 class="feature-title">Mindful App Control (Guard Mode)</h3>
+                    <p>Set boundaries for potentially distracting apps with customizable blocking schedules and guided breathing exercises when temptation strikes.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon feature-icon-3">
+                        <div class="feature-icon-bg"></div>
+                        <div style="z-index: 1;">🧘</div>
+                    </div>
+                    <h3 class="feature-title">Guided Breathing</h3>
+                    <p>Return to focus with brief, calming breathing exercises that help you reconnect with your intentions before accessing distracting apps.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon feature-icon-1">
+                        <div class="feature-icon-bg"></div>
+                        <div style="z-index: 1;">📊</div>
+                    </div>
+                    <h3 class="feature-title">Comprehensive Statistics</h3>
+                    <p>Track your progress with detailed session statistics, focus streaks, and insights that help you understand and improve your productivity patterns.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon feature-icon-2">
+                        <div class="feature-icon-bg"></div>
+                        <div style="z-index: 1;">🔄</div>
+                    </div>
+                    <h3 class="feature-title">Cross-Device Sync</h3>
+                    <p>Seamlessly synchronize your focus sessions across iPhone, Mac, and Apple Watch with real-time updates and unified statistics.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon feature-icon-3">
+                        <div class="feature-icon-bg"></div>
+                        <div style="z-index: 1;">🔕</div>
+                    </div>
+                    <h3 class="feature-title">Focus Integration</h3>
+                    <p>Activate Do Not Disturb automatically during focus sessions to eliminate interruptions and maintain your flow state.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-description">Focusphere's elegant design helps you create boundaries and maintain deep focus with minimal friction.</p>
+            
+            <div class="timer-visual">
+                <div class="timer-visual-outer"></div>
+                <div class="timer-visual-middle"></div>
+                <div class="timer-visual-inner"></div>
+                <div class="timer-visual-wave"></div>
+            </div>
+            
+            <div class="mockup">
+                <div class="mockup-wrapper">
+                    <img src="/api/placeholder/800/450" alt="Focusphere App Features" />
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <h2 class="section-title">Ready to Transform Your Focus?</h2>
+            <p class="section-description">Download Focusphere today and experience the perfect balance of productivity and mindfulness.</p>
+            
+            <svg class="app-icon-large" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+              <!-- App icon background -->
+              <rect width="1024" height="1024" rx="220" fill="#FFFFFF"/>
+              
+              <!-- Green outer ring -->
+              <circle cx="512" cy="512" r="380" fill="none" stroke="#A7E4AD" stroke-width="120" stroke-opacity="0.9"/>
+              
+              <!-- Red C-shaped ring (not fully closed) -->
+              <path d="M512,312 A200,200 0 1,1 512,712 A200,200 0 1,1 512,312" 
+                    fill="none" stroke="#FE6666" stroke-width="100" stroke-linecap="round"
+                    stroke-dasharray="1256" stroke-dashoffset="314"/>
+              
+              <!-- Green inner circle -->
+              <circle cx="512" cy="512" r="150" fill="#A7E4AD" fill-opacity="0.9"/>
+              
+              <!-- Red wave through the center -->
+              <path d="M412,512 Q462,462 512,512 Q562,562 612,512" 
+                    fill="none" stroke="#FE6666" stroke-width="50" stroke-linecap="round"/>
+            </svg>
+            
+            <div class="cta-buttons">
+                <a href="#" class="cta-button">
+                    <span>📱</span> Download for iOS
+                </a>
+                <a href="#" class="cta-button secondary">
+                    <span>⌘</span> Download for Mac
+                </a>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="privacy.html" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Use</a>
+            <a href="mailto:support@focusphere.app" class="footer-link">Contact</a>
+        </div>
+        <p>&copy; 2025 Focusphere. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
